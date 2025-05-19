@@ -2,6 +2,7 @@ import express from "express";
 import mongoDB from "../db/connection.js";
 import { error404Route, error500Route } from "./routes/error.route.js";
 import productRouter from "./routes/product.route.js";
+import cartRouter from "./routes/cart.route.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/products", productRouter);
+app.use("/api/carts", cartRouter);
 app.use(error404Route);
 app.use(error500Route);
 

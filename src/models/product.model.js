@@ -12,6 +12,7 @@ const product = {
     code: {
         type: String,
         require: true,
+        unique: true,
     },
     price: {
         type: Number,
