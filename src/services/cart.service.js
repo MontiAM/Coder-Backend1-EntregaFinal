@@ -3,10 +3,6 @@ import Cart from "../models/cart.model.js";
 class CartService {
     async get() {
         const carts = await Cart.find().populate("products.product");
-        carts.forEach((cart) => {
-            console.log(`Carrito ID: ${cart._id}`);
-            console.log(cart.products);
-        });
         return carts;
     }
     async getOne(id) {

@@ -1,6 +1,6 @@
 import productService from "../services/product.service.js";
-import validateProduct from "../validator/product.validator.js";
-import validateObjectId from "../validator/objectID.validator.js";
+import validateProduct from "../validators/product.validator.js";
+import validateObjectId from "../validators/objectId.validator.js";
 
 class ProductController {
     async get(req, res) {
