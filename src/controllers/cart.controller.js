@@ -58,7 +58,7 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-    async addProductToCart(req, res) {
+    async updateQuantityProductToCart(req, res) {
         try {
             const { cid, pid } = req.params;
             const { quantity } = req.body;

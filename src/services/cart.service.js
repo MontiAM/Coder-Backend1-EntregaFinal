@@ -35,7 +35,7 @@ class CartService {
         );
 
         if (existingProduct) {
-            existingProduct.quantity += quantity;
+            existingProduct.quantity = quantity;
         } else {
             cart.products.push({ product: productId, quantity });
         }
