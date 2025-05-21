@@ -42,15 +42,48 @@ class ProductController {
             }
 
             const products = await productService.get(filter, options);
-            if (!products) {
-                return res.status(404).json({ error: "Products not found" });
+
+            if (!products || !products.docs || products.docs.length === 0) {
+                return res
+                    .status(404)
+                    .json({ status: "error", payload: "Products not found" });
             }
-            return res.status(200).json(products);
+
+            const baseUrl = `${req.protocol}://${req.get("host")}${
+                req.baseUrl
+            }${req.path}`;
+            const queryParams = new URLSearchParams(req.query);
+
+            const prevLink = products.hasPrevPage
+                ? `${baseUrl}?${new URLSearchParams({
+                      ...Object.fromEntries(queryParams),
+                      page: products.prevPage,
+                  }).toString()}`
+                : null;
+
+            const nextLink = products.hasNextPage
+                ? `${baseUrl}?${new URLSearchParams({
+                      ...Object.fromEntries(queryParams),
+                      page: products.nextPage,
+                  }).toString()}`
+                : null;
+
+            return res.status(200).json({
+                status: "success",
+                payload: products.docs,
+                totalPages: products.totalPages,
+                prevPage: products.prevPage,
+                nextPage: products.nextPage,
+                page: products.page,
+                hasPrevPage: products.hasPrevPage,
+                hasNextPage: products.hasNextPage,
+                prevLink,
+                nextLink,
+            });
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
     }
-
     async getOne(req, res) {
         try {
             const { pid } = req.params;
@@ -66,7 +99,6 @@ class ProductController {
             return res.status(500).json({ error: error.message });
         }
     }
-
     async create(req, res) {
         try {
             const product = req.body;
@@ -81,7 +113,6 @@ class ProductController {
             return res.status(500).json({ error: error.message });
         }
     }
-
     async update(req, res) {
         try {
             const { pid } = req.params;
@@ -106,7 +137,6 @@ class ProductController {
             return res.status(500).json({ error: error.message });
         }
     }
-
     async delete(req, res) {
         try {
             const { pid } = req.params;
@@ -122,24 +152,3 @@ class ProductController {
 }
 
 export default new ProductController();
-
-// Para metodo GET de productos
-
-// - opcional LIMIT default 10
-// - opcional PAGE default page 1
-// - opcional QUERY por estado y por categoria
-// - opcional SORT asc o desc por precio
-
-// Cambio estructura metodo GET productos
-// {
-//     status: success/error
-//     payload: "Resultado de los productos solicitados"
-//     totalPages: Total paginas
-//     prevPage: Pagina anterior
-//     nextPage: Pagina siguiente
-//     page: Pagina actual
-//     hasPrevPage: Indicador para saber si la pagina previa existe
-//     hasNextPage: Indicador para saber si la pagina siguiente existe
-//     prevLing: Link directo a la pagina previa (null si hasPrevPage=false) --> Hay que generarlo
-//     nextLink: Link directo a la pagina siguiente (null si hasNextPage=false) --> Hay que generarlo
-// }
