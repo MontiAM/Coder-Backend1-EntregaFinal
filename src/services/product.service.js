@@ -1,8 +1,8 @@
 import Product from "../models/product.model.js";
 
 class ProductService {
-    async get() {
-        const products = await Product.find();
+    async get(filter, options) {
+        const products = await Product.paginate(filter, options);
         return products;
     }
     async getOne(id) {

@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const product = {
     title: {
@@ -36,6 +37,7 @@ const product = {
 };
 
 const productSchema = new Schema(product);
+productSchema.plugin(mongoosePaginate);
 const Product = model("Product", productSchema);
 
 export default Product;
