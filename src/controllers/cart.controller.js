@@ -42,6 +42,7 @@ class CartController {
     async delete(req, res) {
         try {
             const { cid } = req.params;
+            const { deleteCart } = req.query || "false";
 
             const idCheck = cartValidator.validateCartId(cid);
             if (!idCheck.valid)
@@ -50,13 +51,13 @@ class CartController {
             const cart = await cartService.getOne(cid);
             if (!cart) return res.status(404).json({ error: "Cart not found" });
 
-            const deletedCart = await cartService.delete(cid);
+            const deletedCart = await cartService.delete(cid, deleteCart);
+
             res.status(200).json(deletedCart);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
-
     async addProductToCart(req, res) {
         try {
             const { cid, pid } = req.params;
@@ -87,6 +88,19 @@ class CartController {
                 quantity
             );
             res.status(200).json(updatedCart);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+    async addProductsToCart(req, res) {
+        try {
+            const { cid } = req.params;
+            const { products } = req.body;
+            const cidCheck = cartValidator.validateCartId(cid);
+            if (!cidCheck.valid)
+                return res.status(400).json({ error: cidCheck.reason });
+            const cart = await cartService.addProductsToCart(cid, products);
+            res.status(200).json(cart);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

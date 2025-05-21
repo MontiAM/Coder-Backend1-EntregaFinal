@@ -3,3 +3,6 @@ node_modules
 
 #Ignoro consignas
 consignas.txtnpm 
+
+#Ignoro mock data
+/mock
