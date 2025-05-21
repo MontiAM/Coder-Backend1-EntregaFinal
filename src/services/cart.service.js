@@ -13,18 +13,18 @@ class CartService {
         const newCart = await Cart.create(cart);
         return newCart;
     }
-    async delete(id, deleteCart) {
-        let deletedCart;
+    async delete(id, deleteCart = "false") {
+        let returnDeletedCart;
         if (deleteCart === "true") {
-            deletedCart = await Cart.findByIdAndDelete(id);
+            returnDeletedCart = await Cart.findByIdAndDelete(id);
         } else {
-            deletedCart = await Cart.findByIdAndUpdate(
+            returnDeletedCart = await Cart.findByIdAndUpdate(
                 id,
                 { products: [] },
                 { new: true }
             );
         }
-        return deletedCart;
+        return returnDeletedCart;
     }
     async addProductToCart(cartId, productId, quantity) {
         const cart = await Cart.findById(cartId);
@@ -43,14 +43,11 @@ class CartService {
         await cart.save();
         return await Cart.findById(cartId).populate("products.product");
     }
-    async addProductsToCart(cartId, products) {
-        products.forEach(async (product) => {
-            await this.addProductToCart(
-                cartId,
-                product.product,
-                product.quantity
-            );
-        });
+    async updateProductsToCart(cartId, products) {
+        await this.delete(cartId);
+        for (const product of products) {
+            await this.addProductToCart(cartId, product._id, product.quantity);
+        }
         return await Cart.findById(cartId).populate("products.product");
     }
     async removeProductFromCart(cid, pid) {

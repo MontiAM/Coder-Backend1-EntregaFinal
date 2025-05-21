@@ -92,14 +92,34 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-    async addProductsToCart(req, res) {
+    async updateProductsToCart(req, res) {
         try {
             const { cid } = req.params;
-            const { products } = req.body;
             const cidCheck = cartValidator.validateCartId(cid);
             if (!cidCheck.valid)
                 return res.status(400).json({ error: cidCheck.reason });
-            const cart = await cartService.addProductsToCart(cid, products);
+
+            const products = req.body;
+
+            let validate;
+            validate = cartValidator.validateArrayProducts(products);
+            if (!validate.valid) {
+                return res.status(400).json({ error: validate.reason });
+            }
+            validate = cartValidator.validateEmptyProducts(products);
+            if (!validate.valid) {
+                return res.status(400).json({ error: validate.reason });
+            }
+            validate = cartValidator.validateProductsId(products);
+            if (!validate.valid) {
+                return res.status(400).json({ error: validate.reason });
+            }
+            validate = cartValidator.validateProductsQuantity(products);
+            if (!validate.valid) {
+                return res.status(400).json({ error: validate.reason });
+            }
+
+            const cart = await cartService.updateProductsToCart(cid, products);
             res.status(200).json(cart);
         } catch (error) {
             res.status(500).json({ error: error.message });

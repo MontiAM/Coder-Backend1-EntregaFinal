@@ -27,6 +27,50 @@ class CartValidator {
         }
         return { valid: true };
     }
+
+    validateArrayProducts(products) {
+        if (!Array.isArray(products)) {
+            return { valid: false, reason: "Products must be an array" };
+        }
+        return { valid: true };
+    }
+    validateEmptyProducts(products) {
+        for (const product of products) {
+            if (!product._id || !product.quantity) {
+                return {
+                    valid: false,
+                    reason: `Product ${product._id} must have both _id and quantity`,
+                };
+            }
+        }
+        return { valid: true };
+    }
+
+    validateProductsId(products) {
+        for (const product of products) {
+            const result = this.validateProductId(product._id);
+            if (!result.valid) {
+                return {
+                    valid: false,
+                    reason: `Product ${product._id} must have a valid product id`,
+                };
+            }
+        }
+        return { valid: true };
+    }
+
+    validateProductsQuantity(products) {
+        for (const product of products) {
+            const result = this.validateQuantity(product.quantity);
+            if (!result.valid) {
+                return {
+                    valid: false,
+                    reason: `Product ${product._id} must have a valid quantity`,
+                };
+            }
+        }
+        return { valid: true };
+    }
 }
 
 export default new CartValidator();
