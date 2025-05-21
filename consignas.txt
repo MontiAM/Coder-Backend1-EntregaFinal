@@ -101,6 +101,3 @@ Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito
 
 
 
-FILTROS
-PAGINACIONES
-ORDENAMIENTOS
