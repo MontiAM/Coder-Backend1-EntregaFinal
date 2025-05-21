@@ -99,3 +99,8 @@ Contar con el botón de “agregar al carrito” directamente, sin necesidad de 
 
 Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito.
 
+
+
+FILTROS
+PAGINACIONES
+ORDENAMIENTOS

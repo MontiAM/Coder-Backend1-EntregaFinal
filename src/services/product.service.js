@@ -18,7 +18,9 @@ class ProductService {
         return newProduct;
     }
     async update(id, product) {
-        const updatedProduct = await Product.findByIdAndUpdate(id, product);
+        const updatedProduct = await Product.findByIdAndUpdate(id, product, {
+            new: true,
+        });
         return updatedProduct;
     }
     async delete(id) {

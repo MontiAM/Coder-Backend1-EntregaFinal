@@ -18,11 +18,21 @@ class CartService {
         return deletedCart;
     }
     async addProductToCart(cartId, productId, quantity) {
-        const cart = await Cart.updateOne(
-            { _id: cartId },
-            { $push: { products: { product: productId, quantity } } }
+        const cart = await Cart.findById(cartId);
+        if (!cart) throw new Error("Cart not found");
+
+        const existingProduct = cart.products.find(
+            (p) => p.product.toString() === productId.toString()
         );
-        return cart;
+
+        if (existingProduct) {
+            existingProduct.quantity += quantity;
+        } else {
+            cart.products.push({ product: productId, quantity });
+        }
+
+        await cart.save();
+        return await Cart.findById(cartId).populate("products.product");
     }
     async removeProductFromCart(cid, pid) {
         const cart = await Cart.updateOne(

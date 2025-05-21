@@ -59,9 +59,11 @@ class ProductController {
             }
 
             const updatedProduct = await productService.update(pid, product);
+
             if (!updatedProduct) {
                 return res.status(404).json({ error: "Product not found" });
             }
+
             return res.json(updatedProduct);
         } catch (error) {
             return res.status(500).json({ error: error.message });

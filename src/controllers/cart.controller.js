@@ -31,7 +31,12 @@ class CartController {
 
     async create(req, res) {
         try {
-        } catch (error) {}
+            const cart = req.body;
+            const newCart = await cartService.create(cart);
+            res.status(201).json(newCart);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
     }
 
     async delete(req, res) {
@@ -61,16 +66,16 @@ class CartController {
             if (!cidCheck.valid)
                 return res.status(400).json({ error: cidCheck.reason });
 
-            const pidCheck = cartValidator.validateProductId(pid);
-            if (!pidCheck.valid)
-                return res.status(400).json({ error: pidCheck.reason });
-
             const quantityCheck = cartValidator.validateQuantity(quantity);
             if (!quantityCheck.valid)
                 return res.status(400).json({ error: quantityCheck.reason });
 
             const cart = await cartService.getOne(cid);
             if (!cart) return res.status(404).json({ error: "Cart not found" });
+
+            const pidCheck = cartValidator.validateProductId(pid);
+            if (!pidCheck.valid)
+                return res.status(400).json({ error: pidCheck.reason });
 
             const product = await productService.getOne(pid);
             if (!product)
