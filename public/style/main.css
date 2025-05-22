@@ -1,0 +1,165 @@
+body {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.title-button-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.link-button {
+    padding: 10px 16px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.link-button:hover {
+    background-color: #555;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+button {
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-button {
+    background-color: #cf1010;
+    width: 200px;
+}
+
+.delete-button:hover {
+    background-color: #e15454;
+}
+
+#product-list {
+    width: 100%;
+    max-width: 500px;
+}
+
+.product-card {
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    margin: 0 0 0px;
+    font-size: 20px;
+}
+
+.product-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 10px;
+    min-width: 100px;
+    width: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+option {
+    padding: 10px;
+    min-width: 100px;
+    width: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.product-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

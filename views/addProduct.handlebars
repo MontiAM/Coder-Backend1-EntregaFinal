@@ -1,0 +1,29 @@
+<div class="centered-content">
+    <div class="title-button-row">
+        <h1>Cargar producto</h1>
+        <a href="/products" class="link-button">Ver Producto</a>
+    </div>
+
+    <form id="product-form">
+        <input type="text" id="title" placeholder="Título" required />
+        <input
+            type="text"
+            id="description"
+            placeholder="Descripción"
+            required
+        />
+        <input type="text" id="code" placeholder="Código" required />
+        <input type="number" id="price" placeholder="Precio" required />
+        <input type="number" id="stock" placeholder="Stock" required />
+        <input type="text" id="category" placeholder="Categoría" required />
+        <input type="file" id="thumbnails" multiple />
+
+        <label for="status">
+            <input type="checkbox" id="status" checked />
+            Disponible
+        </label>
+
+        <button type="submit">Cargar Producto</button>
+    </form>
+
+</div>

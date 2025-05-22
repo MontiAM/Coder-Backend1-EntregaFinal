@@ -6,6 +6,7 @@ const cart = {
             product: {
                 type: Types.ObjectId,
                 ref: "Product",
+                index: true,
             },
             quantity: {
                 type: Number,

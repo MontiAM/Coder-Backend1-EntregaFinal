@@ -4,9 +4,11 @@ import configureHandlebars from "../configuration/handlebars.config.js";
 import __dirname from "../configuration/__dirname.js";
 import path from "path";
 import handleJsonError from "./middlewares/handleJsonError.middleware.js";
+
 import { error404Route, error500Route } from "./routes/error.route.js";
 import productRouter from "./routes/product.route.js";
 import cartRouter from "./routes/cart.route.js";
+import viewsRouter from "./routes/vews.route.js";
 
 const app = express();
 
@@ -23,9 +25,7 @@ app.use(handleJsonError);
 app.use(express.static(path.join(__dirname, "./public")));
 
 // Routes
-app.get("/render", (req, res) => {
-    res.render("index");
-});
+app.use("/", viewsRouter);
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use(error404Route);

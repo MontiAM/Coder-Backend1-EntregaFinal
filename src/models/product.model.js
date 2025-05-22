@@ -4,35 +4,37 @@ import mongoosePaginate from "mongoose-paginate-v2";
 const product = {
     title: {
         type: String,
-        require: true,
+        required: true,
     },
     description: {
         type: String,
-        require: true,
+        required: true,
     },
     code: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     price: {
         type: Number,
-        require: true,
+        required: true,
+        index: true,
     },
     status: {
         type: Boolean,
-        require: true,
+        required: true,
     },
     stock: {
         type: Number,
-        require: true,
+        required: true,
     },
     category: {
         type: String,
-        require: true,
+        required: true,
+        index: true,
     },
     thumbnails: {
-        type: Array,
+        type: [String],
     },
 };
 
