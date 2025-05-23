@@ -53,8 +53,8 @@ if (filterButton) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    postCart();
     fetchProducts();
-
     const prevButton = document.getElementById("prev-button");
     const nextButton = document.getElementById("next-button");
 

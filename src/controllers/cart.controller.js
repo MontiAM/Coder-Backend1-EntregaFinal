@@ -101,6 +101,8 @@ class CartController {
 
             const products = req.body;
 
+            console.log(products);
+
             let validate;
             validate = cartValidator.validateArrayProducts(products);
             if (!validate.valid) {

@@ -1,0 +1,27 @@
+<div class="modal-overlay">
+    <div class="product-card modal-content">
+        <div class="title-button-row">
+            <h2>{{product.title}}</h2>
+            <a href="/products" class="link-button">Volver</a>
+        </div>
+        <div id="product-detail">
+            <p><strong>Descripción:</strong> {{product.description}}</p>
+            <p><strong>Precio:</strong> ${{product.price}}</p>
+            <p><strong>Stock:</strong> {{product.stock}}</p>
+            <p><strong>Categoría:</strong> {{product.category}}</p>
+            <p><strong>Estado:</strong>
+                {{#if product.status}}Disponible{{else}}No disponible{{/if}}</p>
+            <p><strong>Imágenes:</strong>
+
+                {{#if product.thumbnails.length}}
+                    {{#each product.thumbnails}}
+                        {{this}}
+                    {{/each}}
+                {{else}}
+                    Sin imágenes
+                {{/if}}
+            </p>
+        </div>
+        <button onclick="addToCart('{{product._id}}')">Agregar</button>
+    </div>
+</div>
