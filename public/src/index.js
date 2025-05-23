@@ -38,7 +38,6 @@ if (filterButton) {
     filterButton.addEventListener("click", () => {
         currentCategory = document.getElementById("filter-category").value;
         currentStatus = document.getElementById("filter-status").value;
-        currentStatus = currentStatus === "true" ? true : false;
         fetchProducts(1, currentCategory, currentStatus);
     });
 }

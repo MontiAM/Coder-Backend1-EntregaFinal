@@ -38,10 +38,9 @@ class ProductController {
             }
 
             if (req.query.status) {
-                filter.status = new RegExp(`^${req.query.status}$`, "i");
+                console.log(req.query.status);
+                filter.status = req.query.status.toLowerCase() === "true";
             }
-
-            filter.status = filter.status = "true" ? true : false;
 
             const products = await productService.get(filter, options);
 
