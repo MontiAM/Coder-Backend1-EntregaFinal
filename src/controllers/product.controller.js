@@ -41,6 +41,8 @@ class ProductController {
                 filter.status = new RegExp(`^${req.query.status}$`, "i");
             }
 
+            filter.status = filter.status = "true" ? true : false;
+
             const products = await productService.get(filter, options);
 
             if (!products || !products.docs || products.docs.length === 0) {
