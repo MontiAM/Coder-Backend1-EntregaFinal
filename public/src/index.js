@@ -30,6 +30,19 @@ if (productForm) {
     });
 }
 
+const filterButton = document.getElementById("filter-button");
+let currentCategory = "";
+let currentStatus = "";
+
+if (filterButton) {
+    filterButton.addEventListener("click", () => {
+        currentCategory = document.getElementById("filter-category").value;
+        currentStatus = document.getElementById("filter-status").value;
+        currentStatus = currentStatus === "true" ? true : false;
+        fetchProducts(1, currentCategory, currentStatus);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
 
@@ -39,12 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (prevButton && nextButton) {
         prevButton.addEventListener("click", () => {
             const page = parseInt(prevButton.dataset.page, 10);
-            fetchProducts(page);
+            fetchProducts(page, currentCategory, currentStatus);
         });
 
         nextButton.addEventListener("click", () => {
             const page = parseInt(nextButton.dataset.page, 10);
-            fetchProducts(page);
+            fetchProducts(page, currentCategory, currentStatus);
         });
     }
 });

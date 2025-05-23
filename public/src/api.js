@@ -14,23 +14,32 @@ const updatePaginationControls = (data) => {
     nextButton.dataset.page = data.nextPage || data.page;
 };
 
-const fetchProducts = async (page = 1) => {
-    try {
-        const response = await fetch(`/api/products?page=${page}`);
-        const data = await response.json();
+function fetchProducts(page = 1, category = "", status = "") {
+    let url = `/api/products?page=${page}`;
 
-        const products = data.payload || [];
-        renderProducts(products);
-        updatePaginationControls(data);
-    } catch (error) {
-        console.error("Error al cargar productos:", error);
+    if (category) {
+        url += `&category=${encodeURIComponent(category)}`;
     }
-};
+
+    if (status !== "") {
+        url += `&status=${status}`;
+    }
+
+    console.log(url);
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            renderProducts(data.payload);
+            updatePaginationControls(data);
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+        });
+}
 
 const postProduct = async (product) => {
     try {
-        console.log(product);
-
         const response = await fetch("/api/products", {
             method: "POST",
             headers: {
@@ -39,7 +48,6 @@ const postProduct = async (product) => {
             body: JSON.stringify(product),
         });
         const data = await response.json();
-        console.log("Producto creado:", data);
     } catch (error) {
         console.error("Error al crear producto:", error);
     }
@@ -53,5 +61,3 @@ const deleteProduct = async (id) => {
         console.error("Error al eliminar producto:", error);
     }
 };
-
-document.addEventListener("DOMContentLoaded", fetchProducts);
