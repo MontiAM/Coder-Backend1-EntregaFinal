@@ -8,7 +8,9 @@ const updatePaginationControls = (data) => {
     prevButton.disabled = !data.hasPrevPage;
     nextButton.disabled = !data.hasNextPage;
 
-    pageIndicator.textContent = `Página ${data.page}`;
+    pageIndicator.textContent = data.page
+        ? `Página ${data.page}`
+        : "Sin páginas";
 
     prevButton.dataset.page = data.prevPage || data.page;
     nextButton.dataset.page = data.nextPage || data.page;
@@ -25,16 +27,15 @@ function fetchProducts(page = 1, category = "", status = "") {
         url += `&status=${status}`;
     }
 
-    console.log(url);
-
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
             renderProducts(data.payload);
             updatePaginationControls(data);
         })
-        .catch((error) => {
-            console.error("Error fetching products:", error);
+        .catch(() => {
+            renderProducts([]);
+            updatePaginationControls({});
         });
 }
 
@@ -47,7 +48,13 @@ const postProduct = async (product) => {
             },
             body: JSON.stringify(product),
         });
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert(errorData);
+            return;
+        }
         const data = await response.json();
+        return data;
     } catch (error) {
         console.error("Error al crear producto:", error);
     }

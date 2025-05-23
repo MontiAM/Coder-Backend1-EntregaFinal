@@ -38,7 +38,6 @@ class ProductController {
             }
 
             if (req.query.status) {
-                console.log(req.query.status);
                 filter.status = req.query.status.toLowerCase() === "true";
             }
 
@@ -46,7 +45,7 @@ class ProductController {
 
             if (!products || !products.docs || products.docs.length === 0) {
                 return res
-                    .status(404)
+                    .status(200)
                     .json({ status: "error", payload: "Products not found" });
             }
 

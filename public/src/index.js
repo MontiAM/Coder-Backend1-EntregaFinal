@@ -1,7 +1,7 @@
 const productForm = document.getElementById("product-form");
 
 if (productForm) {
-    productForm.addEventListener("submit", (e) => {
+    productForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const title = document.getElementById("title").value;
@@ -26,7 +26,17 @@ if (productForm) {
             status,
             thumbnails,
         };
-        postProduct(product);
+        try {
+            const newProduct = await postProduct(product);
+            if (newProduct) {
+                alert(`Producto : ${newProduct.title} creado con exito`);
+                productForm.reset();
+            } else {
+                console.warn("No se recibió un producto nuevo.");
+            }
+        } catch (error) {
+            console.error("Error al crear el producto:", error);
+        }
     });
 }
 
