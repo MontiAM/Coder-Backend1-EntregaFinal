@@ -126,3 +126,9 @@ const addToCart = async (id) => {
     //     console.error("Error al agregar producto al carrito:", error);
     // }
 };
+
+const getCartProducts = () => {
+    const storedProducts =
+        JSON.parse(localStorage.getItem("cartProducts")) || [];
+    return storedProducts;
+};
