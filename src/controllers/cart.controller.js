@@ -58,6 +58,40 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
+    async postProductToCart(req, res) {
+        try {
+            const { cid, pid } = req.params;
+            const { quantity } = req.body;
+
+            const cidCheck = cartValidator.validateCartId(cid);
+            if (!cidCheck.valid)
+                return res.status(400).json({ error: cidCheck.reason });
+
+            const quantityCheck = cartValidator.validateQuantity(quantity);
+            if (!quantityCheck.valid)
+                return res.status(400).json({ error: quantityCheck.reason });
+
+            const cart = await cartService.getOne(cid);
+            if (!cart) return res.status(404).json({ error: "Cart not found" });
+
+            const pidCheck = cartValidator.validateProductId(pid);
+            if (!pidCheck.valid)
+                return res.status(400).json({ error: pidCheck.reason });
+
+            const product = await productService.getOne(pid);
+            if (!product)
+                return res.status(404).json({ error: "Product not found" });
+
+            const updatedCart = await cartService.addProductToCart(
+                cid,
+                pid,
+                quantity
+            );
+            res.status(200).json(updatedCart);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
     async updateQuantityProductToCart(req, res) {
         try {
             const { cid, pid } = req.params;
