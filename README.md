@@ -103,7 +103,7 @@ Para usarla:
 
 ## 👤 Autor
 
-Desarrollado por **[Tu Nombre]**
+Desarrollado por Marcio Montivero
 
 ---
 
