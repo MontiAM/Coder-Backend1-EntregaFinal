@@ -1,0 +1,611 @@
+{
+	"info": {
+		"_postman_id": "cae3a41d-ac44-4617-9306-d00ea22f09d0",
+		"name": "Coderhouse Entrega Final",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40395466"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/products/?page=1&limit=10&sort=desc&status=false&category=Perifericos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "status",
+									"value": "false"
+								},
+								{
+									"key": "category",
+									"value": "Perifericos"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get products by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"title\": \"Teclado Mecánico Redragon Kumara\",\n    // \"description\": \"Teclado mecánico retroiluminado con switches Outemu Blue\",\n    // \"code\": \"TKMRD001\",\n    // \"price\": 32000,\n    \"status\": true\n    // \"stock\": 25,\n    // \"category\": \"Periféricos\",\n    // \"thumbnails\": [\n    //     \"teclado_redragon_kumara.jpg\",\n    //     \"teclado_redragon_kumara1.jpg\"\n    // ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/682e08ed16f619fa44c9fc70",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"682e08ed16f619fa44c9fc70"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Post product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"title\": \"Laptop HP Pavilion 15\",\n//     \"description\": \"Laptop con procesador Intel Core i5, 8GB RAM y 512GB SSD\",\n//     \"code\": \"LHP155120\",\n//     \"price\": 350000,\n//     \"status\": true,\n//     \"stock\": 10,\n//     \"category\": \"Laptops\",\n//     \"thumbnails\": [\"laptop_hp_pavilion_15.jpg\"]\n//   }\n//   {\n//     \"title\": \"Mouse Logitech MX Master 3\",\n//     \"description\": \"Mouse inalámbrico ergonómico con sensor de alta precisión\",\n//     \"code\": \"MLMXM3\",\n//     \"price\": 45000,\n//     \"status\": true,\n//     \"stock\": 30,\n//     \"category\": \"Periféricos\",\n//     \"thumbnails\": [\"mouse_logitech_mx_master_3.jpg\"]\n//   }\n//   {\n//     \"title\": \"Monitor LG UltraGear 27”\",\n//     \"description\": \"Monitor gaming 27 pulgadas, 165Hz, 1ms, IPS\",\n//     \"code\": \"MLGUG27\",\n//     \"price\": 280000,\n//     \"status\": true,\n//     \"stock\": 15,\n//     \"category\": \"Monitores\",\n//     \"thumbnails\": [\"monitor_lg_ultragear_27.jpg\"]\n//   }\n//   {\n//     \"title\": \"Teclado Mecánico Redragon Kumara\",\n//     \"description\": \"Teclado mecánico retroiluminado con switches Outemu Blue\",\n//     \"code\": \"TKMRD001\",\n//     \"price\": 32000,\n//     \"status\": true,\n//     \"stock\": 25,\n//     \"category\": \"Periféricos\",\n//     \"thumbnails\": [\n//       \"teclado_redragon_kumara.jpg\",\n//       \"teclado_redragon_kumara1.jpg\"\n//     ]\n//   }\n//   {\n//     \"title\": \"Auriculares HyperX Cloud II\",\n//     \"description\": \"Auriculares gaming con sonido envolvente 7.1 y micrófono desmontable\",\n//     \"code\": \"AHXCLD2\",\n//     \"price\": 60000,\n//     \"status\": true,\n//     \"stock\": 20,\n//     \"category\": \"Audio\",\n//     \"thumbnails\": [\"auriculares_hyperx_cloud_ii.jpg\"]\n//   }\n//   {\n//     \"title\": \"Webcam Logitech C920\",\n//     \"description\": \"Webcam Full HD 1080p con micrófono estéreo\",\n//     \"code\": \"WLC920\",\n//     \"price\": 35000,\n//     \"status\": true,\n//     \"stock\": 18,\n//     \"category\": \"Periféricos\",\n//     \"thumbnails\": [\"webcam_logitech_c920.jpg\"]\n//   }\n//   {\n//     \"title\": \"Silla Gamer Cougar Armor One\",\n//     \"description\": \"Silla ergonómica con soporte lumbar y reclinación 180°\",\n//     \"code\": \"SGCGAO1\",\n//     \"price\": 150000,\n//     \"status\": true,\n//     \"stock\": 8,\n//     \"category\": \"Muebles\",\n//     \"thumbnails\": [\"silla_gamer_cougar_armor_one.jpg\"]\n//   }\n//   {\n//     \"title\": \"Disco SSD Kingston 1TB NVMe\",\n//     \"description\": \"Unidad de estado sólido M.2 NVMe PCIe Gen3\",\n//     \"code\": \"DSSDK1TB\",\n//     \"price\": 90000,\n//     \"status\": true,\n//     \"stock\": 40,\n//     \"category\": \"Almacenamiento\",\n//     \"thumbnails\": [\"ssd_kingston_1tb_nvme.jpg\"]\n//   }\n//   {\n//     \"title\": \"Memoria RAM Corsair Vengeance 16GB\",\n//     \"description\": \"DDR4 3200MHz CL16 para PC de escritorio\",\n//     \"code\": \"RAMCV16\",\n//     \"price\": 45000,\n//     \"status\": true,\n//     \"stock\": 35,\n//     \"category\": \"Componentes\",\n//     \"thumbnails\": [\"ram_corsair_vengeance_16gb.jpg\"]\n//   }\n//   {\n//     \"title\": \"Placa de Video NVIDIA RTX 3060\",\n//     \"description\": \"12GB GDDR6, ideal para gaming en 1080p y 1440p\",\n//     \"code\": \"GPU3060NV\",\n//     \"price\": 400000,\n//     \"status\": true,\n//     \"stock\": 5,\n//     \"category\": \"Componentes\",\n//     \"thumbnails\": [\"nvidia_rtx_3060.jpg\"]\n//   }\n//   {\n//     \"title\": \"Router TP-Link Archer AX20\",\n//     \"description\": \"Router Wi-Fi 6 de doble banda, velocidad hasta 1.8 Gbps\",\n//     \"code\": \"RTLAX20\",\n//     \"price\": 60000,\n//     \"status\": true,\n//     \"stock\": 22,\n//     \"category\": \"Redes\",\n//     \"thumbnails\": [\"router_tp_link_archer_ax20.jpg\"]\n//   }\n//   {\n//     \"title\": \"Impresora HP DeskJet 2720\",\n//     \"description\": \"Multifunción Wi-Fi, imprime, escanea y copia\",\n//     \"code\": \"IHPDJ2720\",\n//     \"price\": 55000,\n//     \"status\": true,\n//     \"stock\": 12,\n//     \"category\": \"Impresoras\",\n//     \"thumbnails\": [\"impresora_hp_deskjet_2720.jpg\"]\n//   }\n//   {\n//     \"title\": \"Smartwatch Xiaomi Mi Watch Lite\",\n//     \"description\": \"Pantalla táctil, GPS integrado y monitoreo de actividad\",\n//     \"code\": \"SWXMWL\",\n//     \"price\": 30000,\n//     \"status\": true,\n//     \"stock\": 50,\n//     \"category\": \"Wearables\",\n//     \"thumbnails\": [\"smartwatch_xiaomi_mi_watch_lite.jpg\"]\n//   }\n//   {\n//     \"title\": \"Disco Externo Seagate 2TB\",\n//     \"description\": \"USB 3.0, portátil, compatible con PC y Mac\",\n//     \"code\": \"DEXSG2TB\",\n//     \"price\": 70000,\n//     \"status\": true,\n//     \"stock\": 16,\n//     \"category\": \"Almacenamiento\",\n//     \"thumbnails\": [\"disco_externo_seagate_2tb.jpg\"]\n//   }\n//   {\n//     \"title\": \"Tablet Samsung Galaxy Tab A7\",\n//     \"description\": \"Pantalla 10.4”, 3GB RAM, 64GB almacenamiento\",\n//     \"code\": \"TBSGTA7\",\n//     \"price\": 150000,\n//     \"status\": true,\n//     \"stock\": 9,\n//     \"category\": \"Tablets\",\n//     \"thumbnails\": [\"tablet_samsung_galaxy_tab_a7.jpg\"]\n//   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"title\": \"Teclado Mecánico Redragon Kumaraaaaaaaaaaaaaaa\"\n    // \"description\": \"Teclado mecánico retroiluminado con switches Outemu Blue\",\n    // \"code\": \"TKMRD001\",\n    \"status\": false\n    // \"stock\": 25,\n    // \"category\": \"Periféricos\",\n    // \"thumbnails\": [\n    //     \"teclado_redragon_kumara.jpg\",\n    //     \"teclado_redragon_kumara1.jpg\",\n    //     \"teclado_redragon_kumara1.jpg\"\n    // ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/682e08ed16f619fa44c9fc70",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"682e08ed16f619fa44c9fc70"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/682e08ed16f619fa44c9fc70",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"682e08ed16f619fa44c9fc70"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Post cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/carts/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								""
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/carts/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								""
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/carts/6834a85aee4d96df9853b1ae",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6834a85aee4d96df9853b1ae"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete cart by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/carts/6834ab6c468ab14337a71a0e?deleteCart=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6834ab6c468ab14337a71a0e"
+							],
+							"query": [
+								{
+									"key": "deleteCart",
+									"value": "true"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "POST product into a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"quantity\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/carts/6834a85aee4d96df9853b1ae/product/682e08ed16f619fa44c9fc73",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6834a85aee4d96df9853b1ae",
+								"product",
+								"682e08ed16f619fa44c9fc73"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Post quantity product into a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"quantity\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/carts/6834a85aee4d96df9853b1ae/product/682e08ed16f619fa44c9fc73",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6834a85aee4d96df9853b1ae",
+								"product",
+								"682e08ed16f619fa44c9fc73"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Put products into a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"_id\": \"682e08ed16f619fa44c9fc71\",\n        \"quantity\": 10\n    }\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc68\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc6a\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc76\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc6e\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc6f\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc75\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc72\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc6c\",\n    //     \"quantity\": 10\n    // },\n    // {\n    //     \"_id\": \"682e08ed16f619fa44c9fc73\",\n    //     \"quantity\": 10\n    // }\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/carts/68337943022b4b8ccb3799d0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"68337943022b4b8ccb3799d0"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product from a cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/carts/6834a85aee4d96df9853b1ae/product/682d20ebac4954f89dee38ba",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6834a85aee4d96df9853b1ae",
+								"product",
+								"682d20ebac4954f89dee38ba"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
