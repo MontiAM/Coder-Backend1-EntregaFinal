@@ -17,6 +17,24 @@ const updatePaginationControls = (data) => {
 };
 const postCart = async () => {
     let cartId = localStorage.getItem("cartId");
+
+    if (cartId) {
+        try {
+            const response = await fetch(`/api/carts/${cartId}`);
+            if (!response.ok) {
+                console.warn(
+                    "Carrito no encontrado en la base. Creando uno nuevo..."
+                );
+                localStorage.removeItem("cartId");
+                cartId = null;
+            }
+        } catch (err) {
+            console.error("Error al verificar carrito existente:", err);
+            localStorage.removeItem("cartId");
+            cartId = null;
+        }
+    }
+
     if (!cartId) {
         try {
             const response = await fetch("/api/carts", {
@@ -28,7 +46,8 @@ const postCart = async () => {
             });
 
             const data = await response.json();
-            if (response.ok) {
+
+            if (response.ok && (data._id || data.id)) {
                 cartId = data._id || data.id;
                 localStorage.setItem("cartId", cartId);
                 console.log("Carrito creado con ID:", cartId);
