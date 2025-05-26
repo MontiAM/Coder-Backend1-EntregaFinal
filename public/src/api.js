@@ -46,13 +46,14 @@ const postCart = async () => {
             });
 
             const data = await response.json();
+            const cart = data.payload;
 
-            if (response.ok && (data._id || data.id)) {
-                cartId = data._id || data.id;
+            if (response.ok && (cart._id || cart.id)) {
+                cartId = cart._id || cart.id;
                 localStorage.setItem("cartId", cartId);
                 console.log("Carrito creado con ID:", cartId);
             } else {
-                console.error("Error al crear carrito:", data.error);
+                console.error("Error al crear carrito:", cart.message);
             }
         } catch (err) {
             console.error("Error al crear carrito:", err);
@@ -96,7 +97,7 @@ const postProduct = async (product) => {
             return;
         }
         const data = await response.json();
-        return data;
+        return data.payload;
     } catch (error) {
         console.error("Error al crear producto:", error);
     }
@@ -130,7 +131,7 @@ const addToCart = async (proId) => {
         }
 
         const data = await response.json();
-        const newProduct = data.products.find(
+        const newProduct = data.payload.products.find(
             (product) => product.product._id.toString() === proId.toString()
         );
         alert(`Producto : ${newProduct.product.title} agregado con exito`);
@@ -148,13 +149,12 @@ const deleteProductFromCart = async (prodId) => {
             }
         );
         const data = await deletedProduct.json();
-        console.log("Producto eliminado del carrito:", data);
+        console.log("Producto eliminado del carrito:", data.payload);
         window.location.reload();
     } catch (error) {
         console.error("Error al eliminar carrito:", error);
     }
 };
-
 const postProductsToCart = async (cartId, body) => {
     try {
         const response = await fetch(`/api/carts/${cartId}`, {

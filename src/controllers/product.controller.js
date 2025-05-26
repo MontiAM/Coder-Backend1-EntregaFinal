@@ -88,15 +88,21 @@ class ProductController {
         try {
             const { pid } = req.params;
             if (!validateObjectId(pid)) {
-                return res.status(400).json({ error: "Invalid product id" });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: "Invalid product id" });
             }
             const product = await productService.getOne(pid);
             if (!product) {
-                return res.status(404).json({ error: "Product not found" });
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Product not found" });
             }
-            return res.json(product);
+            return res.json({ status: "success", payload: product });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res
+                .status(500)
+                .json({ status: "error", message: error.message });
         }
     }
     async create(req, res) {
@@ -105,48 +111,66 @@ class ProductController {
 
             const validProduct = await validateProduct.validateCreate(product);
             if (!validProduct.valid) {
-                return res.status(400).json(validProduct.reason);
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validProduct.reason });
             }
             const newProduct = await productService.create(product);
-            return res.status(201).json(newProduct);
+            return res
+                .status(201)
+                .json({ status: "success", payload: newProduct });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res
+                .status(500)
+                .json({ status: "error", message: error.message });
         }
     }
     async update(req, res) {
         try {
             const { pid } = req.params;
             if (!validateObjectId(pid)) {
-                return res.status(400).json({ error: "Invalid product id" });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: "Invalid product id" });
             }
             const product = req.body;
 
             const validProduct = await validateProduct.validateUpdate(product);
             if (!validProduct.valid) {
-                return res.status(400).json(validProduct.reason);
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validProduct.reason });
             }
 
             const updatedProduct = await productService.update(pid, product);
 
             if (!updatedProduct) {
-                return res.status(404).json({ error: "Product not found" });
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Product not found" });
             }
 
-            return res.json(updatedProduct);
+            return res.json({ status: "success", payload: updatedProduct });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res
+                .status(500)
+                .json({ status: "error", message: error.message });
         }
     }
     async delete(req, res) {
         try {
             const { pid } = req.params;
             if (!validateObjectId(pid)) {
-                return res.status(400).json({ error: "Invalid product id" });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: "Invalid product id" });
             }
             const deletedProduct = await productService.delete(pid);
-            return res.json(deletedProduct);
+            return res.json({ status: "success", payload: deletedProduct });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res
+                .status(500)
+                .json({ status: "error", message: error.message });
         }
     }
 }

@@ -6,9 +6,9 @@ class CartController {
     async get(req, res) {
         try {
             const carts = await cartService.get();
-            res.status(200).json(carts);
+            res.status(200).json({ status: "success", payload: carts });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async getOne(req, res) {
@@ -17,23 +17,28 @@ class CartController {
 
             const idCheck = cartValidator.validateCartId(cid);
             if (!idCheck.valid)
-                return res.status(400).json({ error: idCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: idCheck.reason });
 
             const cart = await cartService.getOne(cid);
-            if (!cart) return res.status(404).json({ error: "Cart not found" });
+            if (!cart)
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Cart not found" });
 
-            res.status(200).json(cart);
+            res.status(200).json({ status: "success", payload: cart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async create(req, res) {
         try {
             const cart = req.body;
             const newCart = await cartService.create(cart);
-            res.status(201).json(newCart);
+            res.status(201).json({ status: "success", payload: newCart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async delete(req, res) {
@@ -43,16 +48,21 @@ class CartController {
 
             const idCheck = cartValidator.validateCartId(cid);
             if (!idCheck.valid)
-                return res.status(400).json({ error: idCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: idCheck.reason });
 
             const cart = await cartService.getOne(cid);
-            if (!cart) return res.status(404).json({ error: "Cart not found" });
+            if (!cart)
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Cart not found" });
 
             const deletedCart = await cartService.delete(cid, deleteCart);
 
-            res.status(200).json(deletedCart);
+            res.status(200).json({ status: "success", payload: deletedCart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async postProductToCart(req, res) {
@@ -62,31 +72,42 @@ class CartController {
 
             const cidCheck = cartValidator.validateCartId(cid);
             if (!cidCheck.valid)
-                return res.status(400).json({ error: cidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: cidCheck.reason });
 
             const quantityCheck = cartValidator.validateQuantity(quantity);
             if (!quantityCheck.valid)
-                return res.status(400).json({ error: quantityCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: quantityCheck.reason });
 
             const cart = await cartService.getOne(cid);
-            if (!cart) return res.status(404).json({ error: "Cart not found" });
+            if (!cart)
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Cart not found" });
 
             const pidCheck = cartValidator.validateProductId(pid);
             if (!pidCheck.valid)
-                return res.status(400).json({ error: pidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: pidCheck.reason });
 
             const product = await productService.getOne(pid);
             if (!product)
-                return res.status(404).json({ error: "Product not found" });
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Product not found" });
 
             const updatedCart = await cartService.addProductToCart(
                 cid,
                 pid,
                 quantity
             );
-            res.status(200).json(updatedCart);
+            res.status(200).json({ status: "success", payload: updatedCart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async updateQuantityProductToCart(req, res) {
@@ -96,31 +117,42 @@ class CartController {
 
             const cidCheck = cartValidator.validateCartId(cid);
             if (!cidCheck.valid)
-                return res.status(400).json({ error: cidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: cidCheck.reason });
 
             const quantityCheck = cartValidator.validateQuantity(quantity);
             if (!quantityCheck.valid)
-                return res.status(400).json({ error: quantityCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: quantityCheck.reason });
 
             const cart = await cartService.getOne(cid);
-            if (!cart) return res.status(404).json({ error: "Cart not found" });
+            if (!cart)
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Cart not found" });
 
             const pidCheck = cartValidator.validateProductId(pid);
             if (!pidCheck.valid)
-                return res.status(400).json({ error: pidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: pidCheck.reason });
 
             const product = await productService.getOne(pid);
             if (!product)
-                return res.status(404).json({ error: "Product not found" });
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Product not found" });
 
             const updatedCart = await cartService.addProductToCart(
                 cid,
                 pid,
                 quantity
             );
-            res.status(200).json(updatedCart);
+            res.status(200).json({ status: "success", payload: updatedCart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async updateProductsToCart(req, res) {
@@ -128,7 +160,9 @@ class CartController {
             const { cid } = req.params;
             const cidCheck = cartValidator.validateCartId(cid);
             if (!cidCheck.valid)
-                return res.status(400).json({ error: cidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: cidCheck.reason });
 
             const products = req.body;
 
@@ -137,25 +171,33 @@ class CartController {
             let validate;
             validate = cartValidator.validateArrayProducts(products);
             if (!validate.valid) {
-                return res.status(400).json({ error: validate.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validate.reason });
             }
             validate = cartValidator.validateEmptyProducts(products);
             if (!validate.valid) {
-                return res.status(400).json({ error: validate.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validate.reason });
             }
             validate = cartValidator.validateProductsId(products);
             if (!validate.valid) {
-                return res.status(400).json({ error: validate.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validate.reason });
             }
             validate = cartValidator.validateProductsQuantity(products);
             if (!validate.valid) {
-                return res.status(400).json({ error: validate.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: validate.reason });
             }
 
             const cart = await cartService.updateProductsToCart(cid, products);
-            res.status(200).json(cart);
+            res.status(200).json({ status: "success", payload: cart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
     async removeProductFromCart(req, res) {
@@ -164,22 +206,29 @@ class CartController {
 
             const cidCheck = cartValidator.validateCartId(cid);
             if (!cidCheck.valid)
-                return res.status(400).json({ error: cidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: cidCheck.reason });
 
             const pidCheck = cartValidator.validateProductId(pid);
             if (!pidCheck.valid)
-                return res.status(400).json({ error: pidCheck.reason });
+                return res
+                    .status(400)
+                    .json({ status: "error", message: pidCheck.reason });
 
             const cart = await cartService.getOne(cid);
-            if (!cart) return res.status(404).json({ error: "Cart not found" });
+            if (!cart)
+                return res
+                    .status(404)
+                    .json({ status: "error", message: "Cart not found" });
 
             const updatedCart = await cartService.removeProductFromCart(
                 cid,
                 pid
             );
-            res.status(200).json(updatedCart);
+            res.status(200).json({ status: "success", payload: updatedCart });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ status: "error", message: error.message });
         }
     }
 }
