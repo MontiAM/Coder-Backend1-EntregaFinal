@@ -1,7 +1,42 @@
-<div>
+<div class="centered-content">
     <div class="title-button-row">
         <h1>Tu Carrito</h1>
         <a href="/products" class="link-button">Volver</a>
     </div>
-    <div id="cart-detail"></div>
+    <div id="pagination-container">
+
+        {{#each cartProducts}}
+            <div class="product-card">
+                <h3>{{this.product.title}}</h3>
+                <p><strong>Descripción:</strong>
+                    {{this.product.description}}</p>
+                <p><strong>Código:</strong> ${{this.product.code}}</p>
+                <p><strong>Precio:</strong> ${{this.product.price}}</p>
+                <p><strong>Stock:</strong> {{this.product.stock}}</p>
+                <p><strong>Categoría:</strong> {{this.product.category}}</p>
+                <p><strong>Estado:</strong>
+                    {{#if this.product.status}}Disponible{{else}}No disponible{{/if}}</p>
+                <p><strong>Imágenes:</strong>
+                    {{#if this.product.thumbnails.length}}
+                        {{#each this.product.thumbnails}}
+                            {{this}}
+                        {{/each}}
+                    {{else}}
+                        Sin imágenes
+                    {{/if}}
+                </p>
+                <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+                <button
+                    onclick="deleteProductFromCart('{{product._id}}')"
+                >Eliminar</button>
+            </div>
+        {{/each}}
+        <button id="checkout-button">
+            Finalizar compra
+        </button>
+    </div>
 </div>
+<script>
+    const cartId = "{{cid}}"; const cartProducts =
+    {{{json cartProducts}}};
+</script>

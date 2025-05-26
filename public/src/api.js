@@ -90,45 +90,48 @@ const deleteProduct = async (id) => {
         console.error("Error al eliminar producto:", error);
     }
 };
-
-const addToCart = async (id) => {
-    const storedProducts =
-        JSON.parse(localStorage.getItem("cartProducts")) || [];
-
-    const existingProduct = storedProducts.find((p) => p._id === id);
-
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        storedProducts.push({ _id: id, quantity: 1 });
+const addToCart = async (proId) => {
+    const cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+        await postCart();
     }
+    try {
+        const response = await fetch(`/api/carts/${cartId}/product/${proId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ quantity: 1 }),
+        });
 
-    localStorage.setItem("cartProducts", JSON.stringify(storedProducts));
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.log(errorData);
+            return;
+        }
 
-    // try {
-    //     const response = await fetch(`/api/carts/${cartId}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ products: storedProducts }),
-    //     });
-
-    //     if (!response.ok) {
-    //         const errorData = await response.json();
-    //         console.log(errorData);
-    //         return;
-    //     }
-
-    //     const data = await response.json();
-    //     console.log("Carrito actualizado:", data);
-    // } catch (error) {
-    //     console.error("Error al agregar producto al carrito:", error);
-    // }
+        const data = await response.json();
+        const newProduct = data.products.find(
+            (product) => product.product._id.toString() === proId.toString()
+        );
+        alert(`Producto : ${newProduct.product.title} agregado con exito`);
+    } catch (error) {
+        console.error("Error al agregar producto al carrito:", error);
+    }
 };
-
-const getCartProducts = () => {
-    const storedProducts =
-        JSON.parse(localStorage.getItem("cartProducts")) || [];
-    return storedProducts;
+const deleteProductFromCart = async (prodId) => {
+    const cartId = localStorage.getItem("cartId");
+    try {
+        const deletedProduct = await fetch(
+            `/api/carts/${cartId}/product/${prodId}`,
+            {
+                method: "DELETE",
+            }
+        );
+        const data = await deletedProduct.json();
+        console.log("Producto eliminado del carrito:", data);
+        window.location.reload();
+    } catch (error) {
+        console.error("Error al eliminar carrito:", error);
+    }
 };

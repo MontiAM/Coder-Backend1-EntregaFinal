@@ -1,3 +1,48 @@
+const checkoutButton = document.getElementById("checkout-button");
+
+if (checkoutButton) {
+    checkoutButton.addEventListener("click", async () => {
+        const body = cartProducts.map((p) => ({
+            _id: p.product._id,
+            quantity: p.quantity,
+        }));
+
+        try {
+            const response = await fetch(`/api/carts/${cartId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                console.log("Resultado de la compra:", result);
+                alert("Compra finalizada con éxito");
+                localStorage.removeItem("cartId");
+                window.location.href = "/products";
+            }
+        } catch (error) {
+            console.error("Error al finalizar compra:", error);
+            alert("Ocurrió un error al finalizar la compra");
+        }
+    });
+}
+
+const viewCartButton = document.getElementById("view-cart-button");
+
+if (viewCartButton) {
+    viewCartButton.addEventListener("click", () => {
+        const cartID = localStorage.getItem("cartId");
+        if (cartID) {
+            window.location.href = `/cart/${cartID}`;
+        } else {
+            alert("Carrito no encontrado. Intente recargar la página");
+        }
+    });
+}
+
 const productForm = document.getElementById("product-form");
 
 if (productForm) {

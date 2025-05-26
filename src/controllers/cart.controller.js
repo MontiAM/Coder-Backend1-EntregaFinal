@@ -11,7 +11,6 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-
     async getOne(req, res) {
         try {
             const { cid } = req.params;
@@ -28,7 +27,6 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-
     async create(req, res) {
         try {
             const cart = req.body;
@@ -38,7 +36,6 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-
     async delete(req, res) {
         try {
             const { cid } = req.params;
@@ -161,7 +158,6 @@ class CartController {
             res.status(500).json({ error: error.message });
         }
     }
-
     async removeProductFromCart(req, res) {
         try {
             const { cid, pid } = req.params;
