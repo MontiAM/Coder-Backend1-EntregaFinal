@@ -25,7 +25,15 @@
                         Sin imágenes
                     {{/if}}
                 </p>
-                <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+                <p><strong>Cantidad:</strong>
+                    <button
+                        onclick="updateQuantity('{{product._id}}', -1)"
+                    >−</button>
+                    <span id="qty-{{product._id}}">{{this.quantity}}</span>
+                    <button
+                        onclick="updateQuantity('{{product._id}}', 1)"
+                    >+</button>
+                </p>
                 <button
                     onclick="deleteProductFromCart('{{product._id}}')"
                 >Eliminar</button>

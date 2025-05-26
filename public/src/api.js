@@ -135,3 +135,26 @@ const deleteProductFromCart = async (prodId) => {
         console.error("Error al eliminar carrito:", error);
     }
 };
+
+const postProductsToCart = async (cartId, body) => {
+    try {
+        const response = await fetch(`/api/carts/${cartId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log("Resultado de la compra:", result);
+            alert("Compra finalizada con éxito");
+            localStorage.removeItem("cartId");
+            window.location.href = "/products";
+        }
+    } catch (error) {
+        console.error("Error al finalizar compra:", error);
+        alert("Ocurrió un error al finalizar la compra");
+    }
+};
